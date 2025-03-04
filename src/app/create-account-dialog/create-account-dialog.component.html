@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Create New Account</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Account Holder Name</mat-label>
+    <input matInput [(ngModel)]="accountHolderName" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Balance</mat-label>
+    <input matInput type="number" [(ngModel)]="balance" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onCreate()">Create</button>
+</mat-dialog-actions>

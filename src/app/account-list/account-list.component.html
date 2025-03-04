@@ -1,0 +1,49 @@
+<h2>Account List</h2>
+<button mat-raised-button color="primary" (click)="openCreateAccountDialog()">Create New Account</button>
+<table mat-table [dataSource]="accounts" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="accountHolderName">
+    <th mat-header-cell *matHeaderCellDef> Account Holder Name </th>
+    <td mat-cell *matCellDef="let account"> {{ account.accountHolderName }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="balance">
+    <th mat-header-cell *matHeaderCellDef> Balance </th>
+    <td mat-cell *matCellDef="let account"> {{ account.balance }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let account">
+      <button mat-button (click)="debit(account.id)">Debit</button>
+      <button mat-button (click)="credit(account.id)">Credit</button>
+      <button mat-button (click)="viewStatement(account.id)">View Statement</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-dialog-content *ngIf="transactionHistory.length > 0">
+  <h2>Transaction History for Account ID: {{ selectedAccountId }}</h2>
+  <table mat-table [dataSource]="transactionHistory" class="mat-elevation-z8">
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let transaction"> {{ transaction.date | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> Amount </th>
+      <td mat-cell *matCellDef="let transaction"> {{ transaction.amount }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Transaction Type </th>
+      <td mat-cell *matCellDef="let transaction"> {{ transaction.type }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['date', 'amount', 'type']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['date', 'amount', 'type'];"></tr>
+  </table>
+</mat-dialog-content>
